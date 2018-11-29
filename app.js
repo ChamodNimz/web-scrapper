@@ -14,6 +14,10 @@ app.use(bodyParser.json());
 
 var request = require('request');
 
+app.get('/',function(req,res){
+	res.send({message: 'API works ...'});
+});
+
 app.get('/results/:id',function(req, res){
 	
 	var array = [];
