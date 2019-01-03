@@ -10,11 +10,18 @@
   "author": "ChamodNimz AKA Zeus",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "js-base64": "^2.5.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "request": "^2.88.0",
-    "response": "^0.18.0"
+    "response": "^0.18.0",
+    "save": "^2.3.3"
   }
 }

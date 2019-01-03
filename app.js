@@ -1,76 +1,46 @@
 // https://nibm-api.herokuapp.com/results/cohdse181f-008 - get  REST data link
 
 const express = require('express')
-var bodyParser = require('body-parser');
-const cheerio = require('cheerio');
+const bodyParser = require('body-parser');
+const path = require('path');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const config = require('./config/config');
 
+// Passing passport instance to passport.js to Extract JWT and validate login 
+require('./config/passport')(passport);
+// Connect to mongoDB
+mongoose.connect(config.database,{useNewUrlParser:true})
+    .then(function(){
+        console.log('mongoDB connected');
+    })
+    .catch(function(){
+        console.log('Error :');
+	}) 
+	
+const port = process.env.PORT || 3000;
 
-const port =  process.env.PORT || 3000;
-
-
+var main = require('./routes/api/main');
+var profile = require('./routes/api/profile');
 const app = express();
 
 // Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var request = require('request');
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get('/',function(req,res){
-	res.send({message: 'API works ...'});
+app.get('/', function (req, res) {
+	res.send({ message: 'API works ...' });
 });
 
-app.get('/results/:id',function(req, res){
-	
-	var array = [];
-	var isTrue = true;
-	var result = {
-
-		subjects: [],
-		results:[]
-	};
-	var results = {
-		subject:'',
-		result: ''
-	};
-
-	var array =[];
-	request('https://www.nibm.lk/students/exams/results?q='+req.params.id,function(err,resp,body){
-		if(!err){
-
-			const $ = cheerio.load(body);
-
-			$('tbody tr td ').each(function(i, el){
-				var item = $(el).text();
-				if(i%2==1){
-
-					isTrue=!isTrue;
-					if(!isTrue){
-						results.subject = item;
-					}else{
-						results.result =  item;
-						array.push(results);
-						results= {};
-						
-					}
-
-				}
-
-			});
-
-		}else{
-
-			throw err;
-		}
-		res.send(array);
-	});
-	
-});
-
-
+app.use('/web/api',main); // api main
+app.use('/web/api',profile); // api profile
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));
 
-process.on('uncaughtException',function(error){
+process.on('uncaughtException', function (error) {
 	console.log(error);
 });
