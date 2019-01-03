@@ -2,7 +2,7 @@ const base64 = require('js-base64').Base64;
 
 module.exports = {
 
-    database:'mongodb://localhost/courseManager', // database connection string
+    database:'mongodb://chamod:chamod123@ds251747.mlab.com:51747/coursemanager', // database connection string
     secret:'$2a$10$hVGvofC92FZJuZV8wLHde.DcTbvtRj632UfCcIBLBxCDoTA.B4OSC', // Secret key need to change when deploying 
     port:3000,
     issuer: 'www.tenent.com', // to verify token issuer with this value
