@@ -10,7 +10,7 @@ const config = require('./config/config');
 // Passing passport instance to passport.js to Extract JWT and validate login 
 require('./config/passport')(passport);
 // Connect to mongoDB
-mongoose.connect(config.database_dev,{useNewUrlParser:true})
+mongoose.connect(config.database,{useNewUrlParser:true})
     .then(function(){
         console.log('mongoDB connected');
     })
