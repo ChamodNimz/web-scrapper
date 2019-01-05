@@ -10,7 +10,7 @@ const config = require('./config/config');
 // Passing passport instance to passport.js to Extract JWT and validate login 
 require('./config/passport')(passport);
 // Connect to mongoDB
-mongoose.connect(config.database,{useNewUrlParser:true})
+mongoose.connect(config.database_dev,{useNewUrlParser:true})
     .then(function(){
         console.log('mongoDB connected');
     })
@@ -22,6 +22,7 @@ const port = process.env.PORT || 3000;
 
 var main = require('./routes/api/main');
 var profile = require('./routes/api/profile');
+var modules = require('./routes/api/modules');
 const app = express();
 
 // Body Parser Middleware
@@ -38,6 +39,7 @@ app.get('/', function (req, res) {
 
 app.use('/web/api',main); // api main
 app.use('/web/api',profile); // api profile
+app.use('/web/api',modules); // api modules
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));
 
