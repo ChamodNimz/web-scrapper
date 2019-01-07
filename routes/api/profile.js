@@ -3,6 +3,7 @@ const router = express.Router();
 const Profile = require('../../models/Profile');
 const passport = require('passport');
 const config = require('../../config/config');
+const base64image = require('base64-img');
 
 router.route('/profile')
 
@@ -38,6 +39,8 @@ router.route('/profile/myProfile')
         var user = JSON.parse(config.base64Decode(req.headers.authorization.split(" ")[1].split(".")[1]));
         Profile.getOneProfile({email:user.email}, (err, profile) => {
             if (!err) {
+                profile.photo = base64image.base64Sync(profile.photo);
+                profile.photo = profile.photo.split(',')[1];
                 res.send({ success: true,data: profile });
             } else {
                 res.status(500).send({ success: false });

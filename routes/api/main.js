@@ -136,7 +136,7 @@ router.route('/gpa')
                     }
                 });
             } else {
-                let gpa = sigmaGpCp/sigmaCp;
+                let gpa = sigmaGpCp / sigmaCp;
                 res.send({ success: true, data: gpa });
             }
         }
@@ -168,5 +168,6 @@ function filterByResult(string) {
         return 0;
     }
 }
+
 
 module.exports = router;
