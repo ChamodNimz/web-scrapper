@@ -10,10 +10,10 @@ router.route('/profile')
     // Get all roles
     .get(function (req, res) {
         Profile.getAllProfiles((err, data) => {
-            if(!err) {
-                res.send({success:true, data:data});
-            }else{
-                res.statu(500).send({success:false, data:null});
+            if (!err) {
+                res.send({ success: true, data: data });
+            } else {
+                res.statu(500).send({ success: false, data: null });
             }
         });
     })
@@ -37,15 +37,16 @@ router.route('/profile/myProfile')
     .get((req, res) => {
         // get payload from jwt and get session data to log
         var user = JSON.parse(config.base64Decode(req.headers.authorization.split(" ")[1].split(".")[1]));
-        Profile.getOneProfile({email:user.email}, (err, profile) => {
+        Profile.getOneProfile({ email: user.email }, (err, profile) => {
             if (!err) {
                 profile.photo = base64image.base64Sync(profile.photo);
                 profile.photo = profile.photo.split(',')[1];
-                res.send({ success: true,data: profile });
+                res.send({ success: true, data: profile });
             } else {
                 res.status(500).send({ success: false });
             }
         });
     })
+
 
 module.exports = router;

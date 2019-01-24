@@ -115,7 +115,9 @@ module.exports.getOneProfile = function (params, callback) {
  * 
  */
 module.exports.getProfileById = function (id, callback) {
+
     Profile.find({ _id: id }, callback);
+    
 }
 
 /**
@@ -125,3 +127,6 @@ module.exports.getProfileById = function (id, callback) {
 module.exports.authenticate = function () {
 
 }
+
+
+  
