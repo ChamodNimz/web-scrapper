@@ -50,20 +50,20 @@ module.exports.createProfile = function (body, callback) {
                 if (!err) {
                     body.password = hash; // override body password with hash
 
-                    let bitmap = new Buffer(body.photo, 'base64');
-                    let path ='./uploads/' + Date.now() + body.first_name + '.jpg';
-                    try {
-                        fs.writeFileSync(path, bitmap);
-                    } catch (error) {
-                        throw error;
-                    }
+                    // let bitmap = new Buffer(body.photo, 'base64');
+                    // let path ='./uploads/' + Date.now() + body.first_name + '.jpg';
+                    // try {
+                    //     fs.writeFileSync(path, bitmap);
+                    // } catch (error) {
+                    //     throw error;
+                    // }
                     let profile = new Profile({
                         first_name: body.first_name,
                         last_name: body.last_name,
                         email: body.email,
                         index: body.index,
                         course_name: body.course_name,
-                        photo: path,
+                        //photo: path,
                         password: body.password
                     });
                     profile.save(callback);
