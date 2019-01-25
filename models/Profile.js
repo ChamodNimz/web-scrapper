@@ -24,7 +24,7 @@ const ProfileSchema = new Schema({
     },
     photo: {
         type: String,
-        required: true
+        required: false
     },
     course_name: {
         type: String,
