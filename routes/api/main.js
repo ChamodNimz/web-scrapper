@@ -50,7 +50,7 @@ router.route('/results/:id')
                             if (i % 2 == 1) {
                                 isTrue = !isTrue;
                                 if (!isTrue) {
-                                    results.subject = item;
+                                    results.subject = item.trim();
                                     for(let i = 0; i<array.length;i++){ // remove duplicate results and get latest results for calculations
                                         if(array[i].subject==item.trim()){
                                             array.splice(i,1);
