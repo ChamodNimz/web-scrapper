@@ -26,6 +26,8 @@ router.route('/results/:id')
 
         var array = [];
         var isTrue = true;
+        let flag=false; // to filter second table
+        let cache=[];
         var result = {
 
             subjects: [],
@@ -42,16 +44,26 @@ router.route('/results/:id')
                 const $ = cheerio.load(body);
                 $('tbody tr td ').each(function (i, el) {
                     var item = $(el).text();
-                    if (i % 2 == 1) {
-                        isTrue = !isTrue;
-                        if (!isTrue) {
-                            results.subject = item;
-                        } else {
-                            results.result = item;
-                            array.push(results);
-                            results = {};
-                        }
-                    }
+                    if(!new RegExp(/^[\d]{2}-[\d]{2}-[\d]{2}$/,"i").test(item)){
+                        if(!flag){ // filter second table
+                            console.log(i+" :: "+item);
+                            if (i % 2 == 1) {
+                                isTrue = !isTrue;
+                                if (!isTrue) {
+                                    results.subject = item;
+                                    for(let i = 0; i<array.length;i++){ // remove duplicate results and get latest results for calculations
+                                        if(array[i].subject==item.trim()){
+                                            array.splice(i,1);
+                                        }
+                                    }
+                                } else {
+                                    results.result = item;
+                                    array.push(results);
+                                    results = {};
+                                }
+                            }
+                        }                   
+                    }else{flag=true;}
                 });
             } else {
                 throw err;
@@ -230,6 +242,12 @@ function filterByResult(string) {
     } else if (string == "D") {
         return 1.0;
     } else if (string == "E") {
+        return 0;
+    }else if (string == "X") {
+        return 0;
+    }else if (string == "HO") {
+        return 0;
+    }else if (string == "AB") {
         return 0;
     }
 }

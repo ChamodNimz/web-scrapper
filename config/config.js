@@ -54,7 +54,7 @@ module.exports.getIntVal = function(string){
         return 9;
     } else if (string == "D") {
         return 10;
-    } else if (string == "E") {
+    } else if (string == "E" || string=="AB" || string== "X" || string=="HO") {
         return 11;
     }
 }
