@@ -249,7 +249,10 @@ function filterByResult(string) {
         return 0;
     }else if (string == "AB") {
         return 0;
+    }else if (string == "P") {
+        return 0;
     }
+    
 }
 
 
