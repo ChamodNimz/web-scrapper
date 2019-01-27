@@ -46,7 +46,7 @@ router.route('/results/:id')
                     var item = $(el).text();
                     if(!new RegExp(/^[\d]{2}-[\d]{2}-[\d]{2}$/,"i").test(item)){
                         if(!flag){ // filter second table
-                            console.log(i+" :: "+item);
+                           
                             if (i % 2 == 1) {
                                 isTrue = !isTrue;
                                 if (!isTrue) {
@@ -249,7 +249,7 @@ function filterByResult(string) {
         return 0;
     }else if (string == "AB") {
         return 0;
-    }else if (string == "P") {
+    }else if (string == "P" || string == "F") {
         return 0;
     }
     
